@@ -1,0 +1,56 @@
+<!DOCTYPE>
+
+<html>
+<head>
+	<title>Fake Randomness Box!</title>
+	<link rel="stylesheet" type="text/css" href="index.css">
+
+
+</head>
+<body>
+<div class="container">
+	<h2 text-align="center">Fake Randomness Box!</h2>
+	<canvas id="myCanvas" width="300" height="300" style="border:1px solid #000000;"></canvas>
+	<button id="btnRandomGen">Generate 7 dots</button>
+	<button id="btnClear">Clear</button>
+</div>
+</body>
+</html>
+
+<script>
+var canvas = document.getElementById("myCanvas");
+var ctx = canvas.getContext("2d");
+var btnRandomGen = document.getElementById("btnRandomGen");
+var btnClear = document.getElementById("btnClear");
+var txtNumRand = document.getElementById("txtNumRand")
+var num = 7;
+
+// http://stackoverflow.com/a/18053642
+function drawDot(event) {
+	var rect = canvas.getBoundingClientRect();
+	var x = event.clientX - rect.left;
+	var y = event.clientY - rect.top;
+
+	ctx.fillRect(x, y, 5, 5);
+}
+
+function randomFill() {
+	for (var i = 0; i < num; i++) {
+		var x = Math.random() * canvas.width;
+		var y = Math.random() * canvas.height;
+
+
+		ctx.fillRect(x, y, 5, 5);
+	}
+}
+
+function clear() {
+
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
+
+canvas.addEventListener('click', drawDot, false);
+btnRandomGen.addEventListener('click', randomFill, false);
+btnClear.addEventListener('click', clear, false);
+
+</script>
