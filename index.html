@@ -66,6 +66,7 @@ function DotList() {
 }
 
 var dotList = new DotList();
+var dotsDrawn = 0;
 
 
 function drawDot(event) {
@@ -74,6 +75,15 @@ function drawDot(event) {
 	var y = event.clientY - rect.top;
 	dotList.insert(new Dot(x, y));
 	ctx.fillRect(x, y, 5, 5);
+
+	dotsDrawn++;
+	btnRandomGen.disabled = true;
+
+	if (dotsDrawn == num) {
+		canvas.removeEventListener('click', drawDot);
+		txtRangeX.textContent = dotList.rangeX();
+		txtRangeY.textContent = dotList.rangeY();
+	}
 
 	console.log("Add dot at " + x + ", " + y + "\n");
 }
@@ -92,10 +102,15 @@ function randomFill() {
 	txtRangeY.textContent = dotList.rangeY();
 
 	btnRandomGen.disabled = true;
+	canvas.removeEventListener('click', drawDot);
 }
 
 function clear() {
 	dotList = new DotList();
+	dotsDrawn = 0;
+
+	canvas.addEventListener('click', drawDot, false);
+
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 	console.log("Delete dots\n");
 
