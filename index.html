@@ -90,6 +90,8 @@ function randomFill() {
 
 	txtRangeX.textContent = dotList.rangeX();
 	txtRangeY.textContent = dotList.rangeY();
+
+	btnRandomGen.disabled = true;
 }
 
 function clear() {
@@ -99,6 +101,8 @@ function clear() {
 
 	txtRangeX.textContent = "";
 	txtRangeY.textContent = "";
+
+	btnRandomGen.disabled = false;
 }
 
 canvas.addEventListener('click', drawDot, false);
