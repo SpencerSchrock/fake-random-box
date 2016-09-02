@@ -13,6 +13,11 @@
 	<canvas id="myCanvas" width="300" height="300" style="border:1px solid #000000;"></canvas>
 	<button id="btnRandomGen">Generate 7 dots</button>
 	<button id="btnClear">Clear</button>
+
+	<div>
+		<span>rangeX: </span><span id="rangeX"></span>
+		<span>rangeY: </span><span id="rangeY"></span>
+	</div>
 </div>
 </body>
 </html>
@@ -26,19 +31,44 @@ var txtNumRand = document.getElementById("txtNumRand")
 var num = 7;
 
 // http://stackoverflow.com/a/18053642
-function dot(x, y) {
+function Dot(x, y) {
 	this.x = x;
 	this.y = y;
 }
 
-var currDots = [];
+function DotList() {
+	this.currDots = [];
+
+	this.minX;
+	this.minY;
+	this.maxX;
+	this.maxY;
+
+	this.insert = function(dot) {
+		this.currDots.push(dot);
+		this.minX = Math.min(this.minX, dot.x);
+		this.minY = Math.min(this.minY, dot.y);
+		this.maxX = Math.max(this.maxX, dot.x);
+		this.maxY = Math.max(this.maxY, dot.y);
+	}
+
+	this.rangeX = function() {
+		return maxX - minX;
+	}
+
+	this.rangeY = function() {
+		return maxY - minY;
+	}
+}
+
+var dotList = new DotList();
 
 
 function drawDot(event) {
 	var rect = canvas.getBoundingClientRect();
 	var x = event.clientX - rect.left;
 	var y = event.clientY - rect.top;
-	currDots.push(dot(x, y));
+	dotList.insert(new Dot(x, y));
 	ctx.fillRect(x, y, 5, 5);
 
 	console.log("Add dot at " + x + ", " + y + "\n");
@@ -49,14 +79,14 @@ function randomFill() {
 		var x = Math.random() * canvas.width;
 		var y = Math.random() * canvas.height;
 
-		currDots.push(dot(x, y));
+		dotList.insert(new Dot(x, y));
 		ctx.fillRect(x, y, 5, 5);
 		console.log("Add dot at " + x + ", " + y + "\n");
 	}
 }
 
 function clear() {
-	currDots = [];
+	dotList.currDots = [];
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 	console.log("Delete dots\n");
 }
