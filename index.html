@@ -26,12 +26,22 @@ var txtNumRand = document.getElementById("txtNumRand")
 var num = 7;
 
 // http://stackoverflow.com/a/18053642
+function dot(x, y) {
+	this.x = x;
+	this.y = y;
+}
+
+var currDots = [];
+
+
 function drawDot(event) {
 	var rect = canvas.getBoundingClientRect();
 	var x = event.clientX - rect.left;
 	var y = event.clientY - rect.top;
-
+	currDots.push(dot(x, y));
 	ctx.fillRect(x, y, 5, 5);
+
+	console.log("Add dot at " + x + ", " + y + "\n");
 }
 
 function randomFill() {
@@ -39,14 +49,16 @@ function randomFill() {
 		var x = Math.random() * canvas.width;
 		var y = Math.random() * canvas.height;
 
-
+		currDots.push(dot(x, y));
 		ctx.fillRect(x, y, 5, 5);
+		console.log("Add dot at " + x + ", " + y + "\n");
 	}
 }
 
 function clear() {
-
+	currDots = [];
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
+	console.log("Delete dots\n");
 }
 
 canvas.addEventListener('click', drawDot, false);
