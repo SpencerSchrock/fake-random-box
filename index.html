@@ -15,8 +15,9 @@
 	<button id="btnClear">Clear</button>
 
 	<div>
-		<span>rangeX: </span><span id="rangeX"></span>
-		<span>rangeY: </span><span id="rangeY"></span>
+		<span>rangeX: </span><span id="txtRangeX"></span>
+		<br>
+		<span>rangeY: </span><span id="txtRangeY"></span>
 	</div>
 </div>
 </body>
@@ -30,6 +31,9 @@ var btnClear = document.getElementById("btnClear");
 var txtNumRand = document.getElementById("txtNumRand")
 var num = 7;
 
+var txtRangeX = document.getElementById("txtRangeX");
+var txtRangeY = document.getElementById("txtRangeY");
+
 // http://stackoverflow.com/a/18053642
 function Dot(x, y) {
 	this.x = x;
@@ -39,10 +43,10 @@ function Dot(x, y) {
 function DotList() {
 	this.currDots = [];
 
-	this.minX;
-	this.minY;
-	this.maxX;
-	this.maxY;
+	this.minX = canvas.width;
+	this.minY = canvas.height;
+	this.maxX = 0;
+	this.maxY = 0; 
 
 	this.insert = function(dot) {
 		this.currDots.push(dot);
@@ -53,11 +57,11 @@ function DotList() {
 	}
 
 	this.rangeX = function() {
-		return maxX - minX;
+		return this.maxX - this.minX;
 	}
 
 	this.rangeY = function() {
-		return maxY - minY;
+		return this.maxY - this.minY;
 	}
 }
 
@@ -83,6 +87,9 @@ function randomFill() {
 		ctx.fillRect(x, y, 5, 5);
 		console.log("Add dot at " + x + ", " + y + "\n");
 	}
+
+	txtRangeX.textContent = dotList.rangeX();
+	txtRangeY.textContent = dotList.rangeY();
 }
 
 function clear() {
