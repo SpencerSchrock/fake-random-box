@@ -122,7 +122,7 @@ function AddRandPoint() {
 }
 
 function randomFill() {
-	randomGenInterval = setInterval(AddRandPoint, 1000);
+	randomGenInterval = setInterval(AddRandPoint, 200);
 
 	btnRandomGen.disabled = true;
 	canvas.removeEventListener('click', drawPoint);
