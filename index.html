@@ -52,12 +52,15 @@ function PointCollection() {
 
 	this.insert = function(point) {
 		this.currPoints.push(point);
+		this.updateStats(point);
+		this.writeStats();
+	}
+
+	this.updateStats = function(point) {
 		this.stats.minX = Math.min(this.stats.minX, point.x);
 		this.stats.minY = Math.min(this.stats.minY, point.y);
 		this.stats.maxX = Math.max(this.stats.maxX, point.x);
 		this.stats.maxY = Math.max(this.stats.maxY, point.y);
-
-		this.writeStats();
 	}
 
 	this.writeStats = function() {
@@ -128,6 +131,7 @@ function randomFill() {
 
 function clear() {
 	pointCollection = new PointCollection();
+	divStats.innerHTML = "";
 	points = 0;
 
 	canvas.addEventListener('click', drawPoint, false);
