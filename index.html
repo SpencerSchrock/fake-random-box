@@ -35,26 +35,25 @@ var txtNumRand = document.getElementById("txtNumRand")
 var num = 7;
 
 
-// http://stackoverflow.com/a/18053642
-function Dot(x, y) {
+function Point(x, y) {
 	this.x = x;
 	this.y = y;
 }
 
-function DotList() {
-	this.currDots = [];
+function PointCollection() {
+	this.currPoints = [];
 
 	this.minX = canvas.width;
 	this.minY = canvas.height;
 	this.maxX = 0;
 	this.maxY = 0; 
 
-	this.insert = function(dot) {
-		this.currDots.push(dot);
-		this.minX = Math.min(this.minX, dot.x);
-		this.minY = Math.min(this.minY, dot.y);
-		this.maxX = Math.max(this.maxX, dot.x);
-		this.maxY = Math.max(this.maxY, dot.y);
+	this.insert = function(point) {
+		this.currPoints.push(point);
+		this.minX = Math.min(this.minX, point.x);
+		this.minY = Math.min(this.minY, point.y);
+		this.maxX = Math.max(this.maxX, point.x);
+		this.maxY = Math.max(this.maxY, point.y);
 	}
 
 	this.rangeX = function() {
@@ -66,27 +65,29 @@ function DotList() {
 	}
 }
 
-var dotList = new DotList();
-var dotsDrawn = 0;
+var pointCollection = new PointCollection();
+var points = 0;
 
 
-function drawDot(event) {
+// http://stackoverflow.com/a/18053642
+
+function drawPoint(event) {
 	var rect = canvas.getBoundingClientRect();
 	var x = event.clientX - rect.left;
 	var y = event.clientY - rect.top;
-	dotList.insert(new Dot(x, y));
+	pointCollection.insert(new Point(x, y));
 	ctx.fillRect(x, y, 5, 5);
 
-	dotsDrawn++;
+	points++;
 	btnRandomGen.disabled = true;
 
-	if (dotsDrawn == num) {
+	if (points == num) {
 		canvas.removeEventListener('click', drawDot);
 		txtRangeX.textContent = dotList.rangeX();
 		txtRangeY.textContent = dotList.rangeY();
 	}
 
-	console.log("Add dot at " + x + ", " + y + "\n");
+	console.log("Add point at " + x + ", " + y + "\n");
 }
 
 function randomFill() {
@@ -94,35 +95,29 @@ function randomFill() {
 		var x = Math.random() * canvas.width;
 		var y = Math.random() * canvas.height;
 
-		dotList.insert(new Dot(x, y));
+		pointCollection.insert(new Point(x, y));
 		ctx.fillRect(x, y, 5, 5);
-		console.log("Add dot at " + x + ", " + y + "\n");
+		console.log("Add point at " + x + ", " + y + "\n");
 	}
 
-	txtRangeX.textContent = dotList.rangeX();
-	txtRangeY.textContent = dotList.rangeY();
-
 	btnRandomGen.disabled = true;
-	canvas.removeEventListener('click', drawDot);
+	canvas.removeEventListener('click', drawPoint);
 }
 
 
 function clear() {
-	dotList = new DotList();
-	dotsDrawn = 0;
+	pointCollection = new PointCollection();
+	points = 0;
 
-	canvas.addEventListener('click', drawDot, false);
+	canvas.addEventListener('click', drawPoint, false);
 
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
-	console.log("Delete dots\n");
-
-	txtRangeX.textContent = "";
-	txtRangeY.textContent = "";
+	console.log("Delete points\n");
 
 	btnRandomGen.disabled = false;
 }
 
-canvas.addEventListener('click', drawDot, false);
+canvas.addEventListener('click', drawPoint, false);
 btnRandomGen.addEventListener('click', randomFill, false);
 btnClear.addEventListener('click', clear, false);
 </script>
