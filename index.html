@@ -36,6 +36,8 @@ var num = 7;
 
 var divStats = document.getElementById("divStats");
 
+var randomGenInterval;
+
 
 function Point(x, y) {
 	this.x = x;
@@ -80,33 +82,44 @@ var points = 0;
 
 
 // http://stackoverflow.com/a/18053642
+// I will probably add a plain addpoint(x, y) for drawpoint and drawRandPoint.
+function AddPoint(x, y) {
+	pointCollection.insert(new Point(x, y));
+	ctx.fillRect(x, y, 5, 5);
+
+	points++;
+}
 
 function drawPoint(event) {
 	var rect = canvas.getBoundingClientRect();
 	var x = event.clientX - rect.left;
 	var y = event.clientY - rect.top;
-	pointCollection.insert(new Point(x, y));
-	ctx.fillRect(x, y, 5, 5);
-
-	points++;
+	AddPoint(x, y);
 	btnRandomGen.disabled = true;
 
 	if (points == num) {
 		canvas.removeEventListener('click', drawPoint);
+
+	}
+
+	console.log("Add point at " + x + ", " + y + "\n");
+}
+
+function AddRandPoint() {
+	var x = Math.random() * canvas.width;
+	var y = Math.random() * canvas.height;
+
+	AddPoint(x, y);
+
+	if (randomGenInterval && points == num) {
+		clearInterval(randomGenInterval);
 	}
 
 	console.log("Add point at " + x + ", " + y + "\n");
 }
 
 function randomFill() {
-	for (var i = 0; i < num; i++) {
-		var x = Math.random() * canvas.width;
-		var y = Math.random() * canvas.height;
-
-		pointCollection.insert(new Point(x, y));
-		ctx.fillRect(x, y, 5, 5);
-		console.log("Add point at " + x + ", " + y + "\n");
-	}
+	randomGenInterval = setInterval(AddRandPoint, 1000);
 
 	btnRandomGen.disabled = true;
 	canvas.removeEventListener('click', drawPoint);
