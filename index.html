@@ -61,6 +61,9 @@ function PointCollection() {
 		this.stats.minY = Math.min(this.stats.minY, point.y);
 		this.stats.maxX = Math.max(this.stats.maxX, point.x);
 		this.stats.maxY = Math.max(this.stats.maxY, point.y);
+
+		this.stats.rangeX = this.stats.maxX - this.stats.minX;
+		this.stats.rangeY = this.stats.maxY - this.stats.minY;
 	}
 
 	this.writeStats = function() {
