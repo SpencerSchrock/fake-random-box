@@ -1,8 +1,23 @@
 body {
+	background: #ccf2ff;
 	font-family: 'Open Sans', sans-serif;
 }
 
 .container {
-	width: 300px;
+	background: white;
+	width: 450px;
 	margin: 0 auto;
+}
+
+.center {
+	text-align: center;
+}
+
+canvas {
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    width: 300px;
 }
