@@ -111,7 +111,7 @@ function drawPoint(event) {
 	console.log("Add point at " + x + ", " + y + "\n");
 }
 
-function AddRandPoint() {
+function addRandPoint() {
 	var x = Math.random() * canvas.width;
 	var y = Math.random() * canvas.height;
 
@@ -125,7 +125,7 @@ function AddRandPoint() {
 }
 
 function randomFill() {
-	randomGenInterval = setInterval(AddRandPoint, 200);
+	randomGenInterval = setInterval(addRandPoint, 200);
 
 	btnRandomGen.disabled = true;
 	canvas.removeEventListener('click', drawPoint);
