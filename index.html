@@ -17,7 +17,7 @@
 
 	</br>
 
-	<button id="btnRandomGen">Generate 7 dots</button>
+	<button id="btnRandomGen">Generate 7 points</button>
 	<button id="btnClear">Clear</button>
 
 	<div id="divStats">
@@ -38,7 +38,7 @@ var divStats = document.getElementById("divStats");
 
 var randomGenInterval;
 
-
+// ranged from 0 to 1
 function Point(x, y) {
 	this.x = x;
 	this.y = y;
@@ -89,7 +89,7 @@ var points = 0;
 
 // http://stackoverflow.com/a/18053642
 // I will probably add a plain addpoint(x, y) for drawpoint and drawRandPoint.
-function AddPoint(x, y) {
+function addPoint(x, y) {
 	pointCollection.insert(new Point(x, y));
 	ctx.fillRect(x, y, 5, 5);
 
@@ -100,7 +100,7 @@ function drawPoint(event) {
 	var rect = canvas.getBoundingClientRect();
 	var x = event.clientX - rect.left;
 	var y = event.clientY - rect.top;
-	AddPoint(x, y);
+	addPoint(x, y);
 	btnRandomGen.disabled = true;
 
 	if (points == num) {
@@ -115,7 +115,7 @@ function AddRandPoint() {
 	var x = Math.random() * canvas.width;
 	var y = Math.random() * canvas.height;
 
-	AddPoint(x, y);
+	addPoint(x, y);
 
 	if (randomGenInterval && points == num) {
 		clearInterval(randomGenInterval);
