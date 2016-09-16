@@ -20,11 +20,19 @@ function Point(x, y) {
 function PointCollection() {
 	// an array to hold the points in order of least-recent to most-recent
 	this.currPoints = [];
+	this.currPointsSorted = [];
 
 	this.stats = new CollectionStats();
 
 	this.insert = function(point) {
 		this.currPoints.push(point);
+
+		// For now we will just keep the sorted array sorted by
+		// sorted it after every insertion. If we run into runtime
+		// problems a binary insert can be implemented.
+		this.currPointsSorted.push(point);
+		this.currPointsSorted.sort(function(a, b) {return a - b;})
+
 		this.updateStats(point);
 		this.writeStats();
 	}
