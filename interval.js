@@ -22,13 +22,12 @@ function Point(x, y) {
 function PointCollection() {
 	// an array to hold the points in order of least-recent to most-recent
 	this.points = [];
-
-	// hold points in increasing order
 	this.pointsSorted = [];
 
 	// holds the distances between points in the order of
 	// which they appear on the interval
 	this.gaps = []; 
+	this.gapsSorted = [];
 
 	this.stats = new CollectionStats();
 
@@ -49,8 +48,15 @@ function PointCollection() {
 		this.gaps = [];
 		for (var i = 1; i < this.pointsSorted.length; i++) {
 			this.gaps.push(this.pointsSorted[i].x - this.pointsSorted[i - 1].x);
+			this.gapsSorted.push(this.gaps[i - 1]);
 		}
+
+		// See line 37
+		this.gapsSorted.sort();
+
 		console.log(this.gaps) // testing purposes
+		console.log(this.gapsSorted);
+		console.log(this.gapsSorted[0]);
 
 		this.updateStats(point);
 		this.writeStats();
@@ -59,8 +65,12 @@ function PointCollection() {
 	this.updateStats = function(point) {
 		this.stats.minX = Math.min(this.stats.minX, point.x);
 		this.stats.maxX = Math.max(this.stats.maxX, point.x);
-
 		this.stats.rangeX = this.stats.maxX - this.stats.minX;
+
+		this.stats["smallest gap"] = this.gapsSorted[0];
+		this.stats["2nd smallest gap"] = this.gapsSorted[1];
+		this.stats["3rd smallest gap"] = this.gapsSorted[2];
+		this.stats["4th smallest gap"] = this.gapsSorted[3];
 	}
 
 	this.writeStats = function() {
