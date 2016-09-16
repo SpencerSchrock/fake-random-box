@@ -7,13 +7,14 @@ var divStats = document.getElementById("divStats");
 var randomGenInterval;
 var num = 20;
 
+ctx.fillStyle = "#FF00FF"; // red points
+
 // draw line
 drawLine();
 
 // ranged from 0 to 1
 function Point(x, y) {
 	this.x = x;
-	this.y = y;
 }
 
 function PointCollection() {
@@ -30,12 +31,9 @@ function PointCollection() {
 
 	this.updateStats = function(point) {
 		this.stats.minX = Math.min(this.stats.minX, point.x);
-		this.stats.minY = Math.min(this.stats.minY, point.y);
 		this.stats.maxX = Math.max(this.stats.maxX, point.x);
-		this.stats.maxY = Math.max(this.stats.maxY, point.y);
 
 		this.stats.rangeX = this.stats.maxX - this.stats.minX;
-		this.stats.rangeY = this.stats.maxY - this.stats.minY;
 	}
 
 	this.writeStats = function() {
@@ -50,50 +48,37 @@ function PointCollection() {
 // an object to contain the results of statistical analysis on a PointCollection.
 function CollectionStats() {
 	this.minX = canvas.width;
-	this.minY = canvas.height;
 	this.maxX = 0;
-	this.maxY = 0;
 }
 
 var pointCollection = new PointCollection();
 var points = 0;
 
-
-// http://stackoverflow.com/a/18053642
-// I will probably add a plain addpoint(x, y) for drawpoint and drawRandPoint.
-function addPoint(x, y) {
-	pointCollection.insert(new Point(x, y));
-	ctx.fillRect(x, y, 5, 5);
-
+function addPoint(x) {
+	pointCollection.insert(new Point(x));
+	ctx.fillRect(canvas.width * x - 2.5, canvas.height/2 - 2.5, 5, 5); // scale x up to width,
 	points++;
 }
 
 function drawPoint(event) {
-	var rect = canvas.getBoundingClientRect();
-	var x = event.clientX - rect.left;
-	var y = event.clientY - rect.top;
-	addPoint(x, y);
+	var rect = canvas.getBoundingClientRect()
+	var x = (event.clientX - rect.left)/canvas.width // scale x down to [0,1);
+	addPoint(x);
 	btnRandomGen.disabled = true;
 
 	if (points == num) {
 		canvas.removeEventListener('click', drawPoint);
-
 	}
-
-	console.log("Add point at " + x + ", " + y + "\n");
 }
 
 function addRandPoint() {
-	var x = Math.random() * canvas.width;
-	var y = Math.random() * canvas.height;
+	var x = Math.random();
 
-	addPoint(x, y);
+	addPoint(x);
 
 	if (randomGenInterval && points == num) {
 		clearInterval(randomGenInterval);
 	}
-
-	console.log("Add point at " + x + ", " + y + "\n");
 }
 
 function randomFill() {
