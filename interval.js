@@ -67,12 +67,14 @@ function PointCollection() {
 		this.stats.maxX = Math.max(this.stats.maxX, point.x);
 		this.stats.rangeX = this.stats.maxX - this.stats.minX;
 
-		this.stats["expected smallest gap"] = 1/num * 1/num; // for reference
+		this.stats["expected smallest gap"] = 1/Math.pow(this.points.length, 2); // for reference
 		this.stats["smallest gap"] = this.gapsSorted[0];
 		this.stats["2nd smallest gap"] = this.gapsSorted[1];
 		this.stats["3rd smallest gap"] = this.gapsSorted[2];
 		this.stats["4th smallest gap"] = this.gapsSorted[3];
 		this.stats["largest gap"] = this.gapsSorted[this.gapsSorted.length - 1];
+		this.stats["distance from right bound"] = 1 - this.pointsSorted[this.pointsSorted.length - 1].x;
+		this.stats["distance from left bound"] = this.pointsSorted[0].x;
 	}
 
 	this.writeStats = function() {
