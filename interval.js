@@ -20,7 +20,13 @@ function Point(x, y) {
 function PointCollection() {
 	// an array to hold the points in order of least-recent to most-recent
 	this.points = [];
+
+	// hold points in increasing order
 	this.pointsSorted = [];
+
+	// holds the distances between points in the order of
+	// which they appear on the interval
+	this.gaps = []; 
 
 	this.stats = new CollectionStats();
 
@@ -32,6 +38,16 @@ function PointCollection() {
 		// problems a binary insert can be implemented.
 		this.pointsSorted.push(point);
 		this.pointsSorted.sort(function(a, b) {return a - b;})
+
+		// The gaps for now will be calculated by iteritavely 
+		// finding the distances between every point in the 
+		// pointsSorted list. Once again, a more efficient
+		// method can be implemented as needed.
+		this.gaps = [];
+		for (var i = 1; i < pointsSorted.length; i++) {
+			gaps.push(pointsSorted[i].x - pointsSorted[i - 1].x);
+		}
+		console.log(gaps) // testing purposes
 
 		this.updateStats(point);
 		this.writeStats();
