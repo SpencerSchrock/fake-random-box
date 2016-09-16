@@ -37,17 +37,18 @@ function PointCollection() {
 		// sorted it after every insertion. If we run into runtime
 		// problems a binary insert can be implemented.
 		this.pointsSorted.push(point);
-		this.pointsSorted.sort(function(a, b) {return a - b;})
+		this.pointsSorted.sort(function(a, b) {return a.x - b.x;})
+		 // testing
 
 		// The gaps for now will be calculated by iteritavely 
 		// finding the distances between every point in the 
 		// pointsSorted list. Once again, a more efficient
 		// method can be implemented as needed.
 		this.gaps = [];
-		for (var i = 1; i < pointsSorted.length; i++) {
-			gaps.push(pointsSorted[i].x - pointsSorted[i - 1].x);
+		for (var i = 1; i < this.pointsSorted.length; i++) {
+			this.gaps.push(this.pointsSorted[i].x - this.pointsSorted[i - 1].x);
 		}
-		console.log(gaps) // testing purposes
+		console.log(this.gaps) // testing purposes
 
 		this.updateStats(point);
 		this.writeStats();
