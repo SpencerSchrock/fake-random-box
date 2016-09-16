@@ -7,6 +7,8 @@ var divStats = document.getElementById("divStats");
 var randomGenInterval;
 var num = 20;
 
+btnRandomGen.textContent = "Generate " + num + " points";
+
 ctx.fillStyle = "#FF00FF"; // red points
 
 // draw line
