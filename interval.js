@@ -126,6 +126,8 @@ function clear() {
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 	console.log("Delete points\n");
 
+	drawLine();
+
 	btnRandomGen.disabled = false;
 }
 
