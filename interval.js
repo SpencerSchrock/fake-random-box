@@ -71,6 +71,7 @@ function PointCollection() {
 		this.stats["2nd smallest gap"] = this.gapsSorted[1];
 		this.stats["3rd smallest gap"] = this.gapsSorted[2];
 		this.stats["4th smallest gap"] = this.gapsSorted[3];
+		this.stats["largest gap"] = this.gapsSorted[this.gapsSorted.length - 1];
 	}
 
 	this.writeStats = function() {
