@@ -16,12 +16,12 @@ function Point(x, y) {
 
 function PointCollection() {
 	// an array to hold the points in order of least-recent to most-recent
-	this.currPoints = [];
+	this.points = [];
 
 	this.stats = new CollectionStats();
 
 	this.insert = function(point) {
-		this.currPoints.push(point);
+		this.points.push(point);
 		this.updateStats(point);
 		this.writeStats();
 	}
@@ -48,7 +48,7 @@ function PointCollection() {
 // an object to contain the results of statistical analysis on a PointCollection.
 function CollectionStats() {
 	this.minX = canvas.width;
-	this.minY = canvas.height;
+	this.minY = canvas.height
 	this.maxX = 0;
 	this.maxY = 0;
 }
