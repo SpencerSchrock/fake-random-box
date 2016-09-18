@@ -61,15 +61,15 @@ var points = 0;
 // I will probably add a plain addpoint(x, y) for drawpoint and drawRandPoint.
 function addPoint(x, y) {
 	pointCollection.insert(new Point(x, y));
-	ctx.fillRect(x, y, 5, 5);
+	ctx.fillRect(canvas.width*x, canvas.height*y, 5, 5);
 
 	points++;
 }
 
 function drawPoint(event) {
 	var rect = canvas.getBoundingClientRect();
-	var x = event.clientX - rect.left;
-	var y = event.clientY - rect.top;
+	var x = (event.clientX - rect.left)/300;
+	var y = (event.clientY - rect.top)/300;
 	addPoint(x, y);
 	btnRandomGen.disabled = true;
 
@@ -82,8 +82,8 @@ function drawPoint(event) {
 }
 
 function addRandPoint() {
-	var x = Math.random() * canvas.width;
-	var y = Math.random() * canvas.height;
+	var x = Math.random();
+	var y = Math.random();
 
 	addPoint(x, y);
 
