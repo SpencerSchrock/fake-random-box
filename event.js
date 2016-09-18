@@ -24,6 +24,9 @@ function PointCollection() {
 	this.gapsX = [];
 	this.gapsY = [];
 
+	this.sortedGapsX = [];
+	this.sortedGapsY = [];
+
 
 	this.stats = new CollectionStats();
 
@@ -35,6 +38,23 @@ function PointCollection() {
 		// can be avoided with binary push
 		this.sortedPointsX.sort(function(a, b) {return a.x - b.x});
 		this.sortedPointsY.sort(function(a, b) {return a.y - b.y});
+
+		// Very inefficient way of finding gaps
+		this.gapsX = [];
+		this.gapsY = [];
+		for (var i = 1; i < this.sortedPointsX.length; i++) {
+			this.gapsX.push(this.sortedPointsX[i].x - this.sortedPointsX[i - 1].x);
+			this.gapsY.push(this.sortedPointsY[i].y - this.sortedPointsY[i - 1].y);
+			this.sortedGapsX.push(this.gapsX[i - 1]); // binary search insert
+			this.sortedGapsY.push(this.gapsY[i - 1]); // ... later
+		}
+
+		// this way of keeping gaps sorted is somewhat awful
+		this.sortedGapsX.sort();
+		this.sortedGapsY.sort();
+
+		console.log(this.sortedGapsX);
+		console.log(this.sortedGapsY);
 
 		this.updateStats(point);
 		this.writeStats();
