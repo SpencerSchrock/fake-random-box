@@ -18,10 +18,24 @@ function PointCollection() {
 	// an array to hold the points in order of least-recent to most-recent
 	this.points = [];
 
+	this.sortedPointsX = [];
+	this.sortedPointsY = [];
+
+	this.gapsX = [];
+	this.gapsY = [];
+
+
 	this.stats = new CollectionStats();
 
 	this.insert = function(point) {
 		this.points.push(point);
+		this.sortedPointsX.push(point); // implement binary search
+		this.sortedPointsY.push(point); // push ... later
+
+		// can be avoided with binary push
+		this.sortedPointsX.sort(function(a, b) {return a.x - b.x});
+		this.sortedPointsY.sort(function(a, b) {return a.y - b.y});
+
 		this.updateStats(point);
 		this.writeStats();
 	}
