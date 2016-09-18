@@ -4,6 +4,8 @@ var btnRandomGen = document.getElementById("btnRandomGen");
 var btnClear = document.getElementById("btnClear");
 var num = 20;
 
+btnRandomGen.innerHTML = "Generate " + num + " points";
+
 var divStats = document.getElementById("divStats");
 
 var randomGenInterval;
@@ -56,12 +58,13 @@ function PointCollection() {
 		this.sortedGapsX.sort();
 		this.sortedGapsY.sort();
 
-		console.log(this.sortedGapsX);
-		//console.log(this.sortedGapsY);
 
 		this.updateStats(point);
 		this.writeStats();
 	}
+
+	this.stats["maxDistance"] = 0;
+	this.stats["minDistance"] = 1.5;
 
 	this.updateStats = function(point) {
 		this.stats.minX = Math.min(this.stats.minX, point.x);
@@ -83,6 +86,17 @@ function PointCollection() {
 
 		this.stats["max(X gap)"] = this.sortedGapsX[this.sortedGapsX.length - 1];
 		this.stats["max(Y gap)"] = this.sortedGapsY[this.sortedGapsY.length - 1];
+
+		for (var gap = 1; gap < this.points.length - 2; gap++) {
+			for (var combo = 0; combo < this.points.length - gap; combo++) {
+				var p0 = this.points[combo];
+				var p1 = this.points[combo + gap];
+				var distance = Math.pow(Math.pow(p0.x-p1.x, 2)+Math.pow(p0.y-p1.y,2),1/2);
+				console.log(distance);
+				this.stats["minDistance"] = Math.min(distance,this.stats.minDistance);
+				this.stats["maxDistance"] = Math.max(distance,this.stats.maxDistance);
+			}
+		}
 
 	}
 
@@ -128,7 +142,7 @@ function drawPoint(event) {
 
 	}
 
-	console.log("Add point at " + x + ", " + y + "\n");
+	//console.log("Add point at " + x + ", " + y + "\n");
 }
 
 function addRandPoint() {
@@ -141,7 +155,7 @@ function addRandPoint() {
 		clearInterval(randomGenInterval);
 	}
 
-	console.log("Add point at " + x + ", " + y + "\n");
+	//console.log("Add point at " + x + ", " + y + "\n");
 }
 
 function randomFill() {
