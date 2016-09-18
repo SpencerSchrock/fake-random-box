@@ -68,6 +68,12 @@ function PointCollection() {
 
 		this.stats.rangeX = this.stats.maxX - this.stats.minX;
 		this.stats.rangeY = this.stats.maxY - this.stats.minY;
+
+		this.stats["E(min X gap)"] = 1/Math.pow(this.points.length, 2);
+		this.stats["E(min Y gap)"] = 1/Math.pow(this.points.length, 2);
+
+		this.stats["min(X gap)"] = this.sortedGapsX[0];
+		this.stats["min(Y gap)"] = this.sortedGapsY[0];
 	}
 
 	this.writeStats = function() {
