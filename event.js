@@ -42,6 +42,9 @@ function PointCollection() {
 		// Very inefficient way of finding gaps
 		this.gapsX = [];
 		this.gapsY = [];
+		this.sortedGapsX = [];
+		this.sortedGapsY = [];
+		
 		for (var i = 1; i < this.sortedPointsX.length; i++) {
 			this.gapsX.push(this.sortedPointsX[i].x - this.sortedPointsX[i - 1].x);
 			this.gapsY.push(this.sortedPointsY[i].y - this.sortedPointsY[i - 1].y);
@@ -54,7 +57,7 @@ function PointCollection() {
 		this.sortedGapsY.sort();
 
 		console.log(this.sortedGapsX);
-		console.log(this.sortedGapsY);
+		//console.log(this.sortedGapsY);
 
 		this.updateStats(point);
 		this.writeStats();
@@ -74,6 +77,13 @@ function PointCollection() {
 
 		this.stats["min(X gap)"] = this.sortedGapsX[0];
 		this.stats["min(Y gap)"] = this.sortedGapsY[0];
+
+		this.stats["E(max X gap)"] = Math.log(this.points.length)/this.points.length;
+		this.stats["E(max Y gap)"] = Math.log(this.points.length)/this.points.length;
+
+		this.stats["max(X gap)"] = this.sortedGapsX[this.sortedGapsX.length - 1];
+		this.stats["max(Y gap)"] = this.sortedGapsY[this.sortedGapsY.length - 1];
+
 	}
 
 	this.writeStats = function() {
