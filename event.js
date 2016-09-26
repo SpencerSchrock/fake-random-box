@@ -10,6 +10,15 @@ var divStats = document.getElementById("divStats");
 
 var randomGenInterval;
 
+var pointCollection = new PointCollection();
+var points = 0;
+
+canvas.addEventListener('click', drawPoint, false);
+btnRandomGen.addEventListener('click', randomFill, false);
+btnClear.addEventListener('click', clear, false);
+
+// FUNCTIONs
+
 // ranged from 0 to 1
 function Point(x, y) {
 	this.x = x;
@@ -117,10 +126,6 @@ function CollectionStats() {
 	this.maxY = 0;
 }
 
-var pointCollection = new PointCollection();
-var points = 0;
-
-
 // http://stackoverflow.com/a/18053642
 // I will probably add a plain addpoint(x, y) for drawpoint and drawRandPoint.
 function addPoint(x, y) {
@@ -165,7 +170,6 @@ function randomFill() {
 	canvas.removeEventListener('click', drawPoint);
 }
 
-
 function clear() {
 	pointCollection = new PointCollection();
 	divStats.innerHTML = "";
@@ -178,7 +182,3 @@ function clear() {
 
 	btnRandomGen.disabled = false;
 }
-
-canvas.addEventListener('click', drawPoint, false);
-btnRandomGen.addEventListener('click', randomFill, false);
-btnClear.addEventListener('click', clear, false);
