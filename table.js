@@ -18,5 +18,10 @@ table = {
 };
 
 function normalize(key, value) {
-	
+	for (var i = 0; i < table[key].length; i++) {
+		if (table[key][i] > value) {
+			return i/table[key].length;
+		}
+	}
+	return 1;
 }
