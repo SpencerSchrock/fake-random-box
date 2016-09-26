@@ -3,12 +3,12 @@ var ctx = canvas.getContext("2d");
 var btnRandomGen = document.getElementById("btnRandomGen");
 var btnClear = document.getElementById("btnClear");
 var num = 20;
-
 btnRandomGen.innerHTML = "Generate " + num + " points";
-
 var divStats = document.getElementById("divStats");
-
+var divStatsNormalized = document.getElementById("divStatsNormalized");
 var randomGenInterval;
+
+console.log(table)
 
 var pointCollection = new PointCollection();
 var points = 0;
@@ -70,6 +70,9 @@ function PointCollection() {
 
 		this.updateStats(point);
 		this.writeStats();
+		if (points + 1 == num) {
+			this.writeStatsNormalized();
+		}
 	}
 
 	this.stats["maxDistance"] = 0;
@@ -114,14 +117,20 @@ function PointCollection() {
 		for (key in this.stats) {
 			divStats.innerHTML += key + " : " + this.stats[key] + "<br />";
 		}
+	}
 
+	this.writeStatsNormalized = function() {
+		divStatsNormalized.innerHTML = "";
+		for (key in this.stats) {
+			divStatsNormalized.innerHTML += key + " : " + normalize(key, this.stats[key]) + "<br />";
+		}
 	}
 }
 
 // an object to contain the results of statistical analysis on a PointCollection.
 function CollectionStats() {
-	this.minX = canvas.width;
-	this.minY = canvas.height
+	this.minX = 1;
+	this.minY = 1;
 	this.maxX = 0;
 	this.maxY = 0;
 }
@@ -182,3 +191,4 @@ function clear() {
 
 	btnRandomGen.disabled = false;
 }
+
