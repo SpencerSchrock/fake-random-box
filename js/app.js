@@ -5,7 +5,7 @@ requirejs.config({
     }
 });
 
-requirejs(['app/point', 'app/pointCollection'], function(Point, PointCollection) {
+requirejs(['app/point', 'app/pointCollection', 'app/table'], function(Point, PointCollection, normalize) {
 
 	var canvas = document.getElementById("myCanvas");
 	var ctx = canvas.getContext("2d");
@@ -30,16 +30,49 @@ requirejs(['app/point', 'app/pointCollection'], function(Point, PointCollection)
 	btnRandomGen.addEventListener('click', randomFill, false);
 	btnClear.addEventListener('click', clear, false);
 
+	
+
+	function drawScoreChart() {
+		var dataPoints = [];
+
+		var xValue = 10;
+		for (key in pointCollection.stats) {
+			dataPoints.push({ x : xValue, y : 2 * Math.abs(normalize(key, pointCollection.stats[key]) - 0.5) * 100, label : key });
+			xValue += 10;
+		}
+
+		var chart = new CanvasJS.Chart("chartContainer",
+		{
+		title:{
+			text: "Score"
+		},
+
+		data: [
+			{
+				type: "bar",
+				dataPoints: dataPoints
+			}
+		]
+	});
+
+	chart.render();
+	}
+
 	function manualInsert(event) {
 		point = new Point(event, canvas, true);
 		addPoint(point);
 
 		if (numPoints == pointLimit) {
-				canvas.removeEventListener('click', manualInsert);
-				btnRandomGen.removeEventListener('click', randomFill);
-				pointCollection.writeStatsNormalized(divStats);
-				btnRandomGen.disabled = true;
+				complete();
 		}
+	}
+
+	function complete() {
+		canvas.removeEventListener('click', manualInsert);
+		btnRandomGen.removeEventListener('click', randomFill);
+		btnRandomGen.disabled = true;
+		pointCollection.writeStatsNormalized(divStats);
+		drawScoreChart();
 	}
 
 	function randomFill() {
@@ -66,10 +99,7 @@ requirejs(['app/point', 'app/pointCollection'], function(Point, PointCollection)
 			canvas.addEventListener('click', manualInsert);
 
 			if (numPoints == pointLimit) {
-				canvas.removeEventListener('click', manualInsert);
-				btnRandomGen.removeEventListener('click', randomFill);
-				btnRandomGen.disabled = true;
-				pointCollection.writeStatsNormalized(divStats);
+				complete();
 			}
 		}
 	}
