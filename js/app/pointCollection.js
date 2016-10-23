@@ -64,28 +64,53 @@ define(['app/collectionStats', 'app/table'], function(CollectionStats, normalize
 			this.stats["max(Y gap)"] = this.sortedGapsY[this.sortedGapsY.length - 1];
 
 			if (this.points.length > 1) {
-				this.stats["MIN-GAP-2"] = this.sortedGapsX[1];
-				this.stats["MAX-GAP-2"] = this.sortedGapsY[1];
+				this.stats["minGapX2"] = this.sortedGapsX[1];
+				this.stats["minGapY2"] = this.sortedGapsY[1];
 			}
 
 			if (this.points.length > 2) {
-				this.stats["MIN-GAP-2"] = this.sortedGapsX[2];
-				this.stats["MAX-GAP-2"] = this.sortedGapsY[2];
+				this.stats["minGapX3"] = this.sortedGapsX[2];
+				this.stats["minGapY3"] = this.sortedGapsY[2];
 			}
 
 			if (this.points.length > 3) {
-				this.stats["MIN-GAP-3"] = this.sortedGapsX[3];
-				this.stats["MAX-GAP-3"] = this.sortedGapsY[3];
+				this.stats["minGapX4"] = this.sortedGapsX[3];
+				this.stats["minGapY4"] = this.sortedGapsY[3];
 			}
 
 			if (this.points.length > 4) {
-				this.stats["MIN-GAP-4"] = this.sortedGapsX[4];
-				this.stats["MAX-GAP-4"] = this.sortedGapsY[4];
+				this.stats["minGapX5"] = this.sortedGapsX[4];
+				this.stats["minGapY5"] = this.sortedGapsY[4];
+			}
+
+			if (this.points.length > 5) {
+				this.stats["minGapX6"] = this.sortedGapsX[5];
+				this.stats["minGapY6"] = this.sortedGapsY[5];
 			}
 
 			if (this.points.length > 1) {
-				this.stats["MIN-GAP-5"] = this.sortedGapsX[5];
-				this.stats["MAX-GAP-5"] = this.sortedGapsY[5];
+				this.stats["maxGapX2"] = this.sortedGapsX[this.points.length - 1 - 1];
+				this.stats["maxGapY2"] = this.sortedGapsY[this.points.length - 1 - 1];
+			}
+
+			if (this.points.length > 2) {
+				this.stats["maxGapX3"] = this.sortedGapsX[this.points.length - 1 - 2];
+				this.stats["maxGapY3"] = this.sortedGapsY[this.points.length - 1 - 2];
+			}
+
+			if (this.points.length > 3) {
+				this.stats["maxGapX4"] = this.sortedGapsX[this.points.length - 1 - 3];
+				this.stats["maxGapY4"] = this.sortedGapsY[this.points.length - 1 - 3];
+			}
+
+			if (this.points.length > 4) {
+				this.stats["maxGapX5"] = this.sortedGapsX[this.points.length - 1 - 4];
+				this.stats["maxGapY5"] = this.sortedGapsY[this.points.length - 1 - 4];
+			}
+
+			if (this.points.length > 5) {
+				this.stats["maxGapX0"] = this.sortedGapsX[this.points.length - 1 - 5];
+				this.stats["maxGapY0"] = this.sortedGapsY[this.points.length - 1 - 5];
 			}
 
 			for (var gap = 1; gap < this.points.length - 2; gap++) {
