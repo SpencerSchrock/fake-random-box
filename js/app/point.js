@@ -3,6 +3,7 @@ define(function() {
 
 	return function(param0, param1, fromCanvas) {
 		if (fromCanvas) {
+			// http://stackoverflow.com/a/18053642
 			// create point from coordinates of canvas
 			// on-click event
 			// param0 = event
