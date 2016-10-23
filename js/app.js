@@ -37,6 +37,7 @@ requirejs(['app/point', 'app/pointcollection'], function(Point, PointCollection)
 		if (numPoints == pointLimit) {
 				canvas.removeEventListener('click', manualInsert);
 				btnRandomGen.removeEventListener('click', randomFill);
+				pointCollection.writeStatsNormalized(divStats);
 				btnRandomGen.disabled = true;
 		}
 	}
@@ -68,6 +69,7 @@ requirejs(['app/point', 'app/pointcollection'], function(Point, PointCollection)
 				canvas.removeEventListener('click', manualInsert);
 				btnRandomGen.removeEventListener('click', randomFill);
 				btnRandomGen.disabled = true;
+				pointCollection.writeStatsNormalized(divStats);
 			}
 		}
 	}
@@ -75,6 +77,7 @@ requirejs(['app/point', 'app/pointcollection'], function(Point, PointCollection)
 	function clear() {
 		pointCollection = new PointCollection();
 		divStats.innerHTML = "";
+		divStatsNormalized.innerHTML = "";
 		numPoints = 0;
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 		clearInterval(randomGenInterval);
