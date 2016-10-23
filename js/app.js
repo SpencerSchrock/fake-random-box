@@ -37,12 +37,12 @@ requirejs(['app/point', 'app/pointcollection'], function(Point, PointCollection)
 		if (numPoints == pointLimit) {
 				canvas.removeEventListener('click', manualInsert);
 				btnRandomGen.removeEventListener('click', randomFill);
-
 				btnRandomGen.disabled = true;
 		}
 	}
 
 	function randomFill() {
+		canvas.removeEventListener('click', manualInsert);
 		randomGenInterval = setInterval(addRandPoint, 200);
 	}
 
@@ -50,6 +50,7 @@ requirejs(['app/point', 'app/pointcollection'], function(Point, PointCollection)
 		pointCollection.insert(point, divStats);
 		ctx.fillRect(canvas.width * point.x, canvas.height * point.y, 2.5, 2.5);
 		numPoints++;
+		spanNumPoints.innerHTML = "Input " + (pointLimit - numPoints) + " points";
 	}
 
 	function addRandPoint() {
@@ -61,6 +62,7 @@ requirejs(['app/point', 'app/pointcollection'], function(Point, PointCollection)
 		if (pointsGenerated == fillAmount || numPoints == pointLimit) {
 			clearInterval(randomGenInterval);
 			pointsGenerated = 0;
+			canvas.addEventListener('click', manualInsert);
 
 			if (numPoints == pointLimit) {
 				canvas.removeEventListener('click', manualInsert);
@@ -75,7 +77,8 @@ requirejs(['app/point', 'app/pointcollection'], function(Point, PointCollection)
 		divStats.innerHTML = "";
 		numPoints = 0;
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
-
+		clearInterval(randomGenInterval);
+		spanNumPoints.innerHTML = "Input " + pointLimit + " points";
 		canvas.addEventListener('click', manualInsert, false);
 		btnRandomGen.addEventListener('click', randomFill, false);
 		console.log("Delete points\n");
