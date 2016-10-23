@@ -13,7 +13,7 @@ requirejs(['app/point', 'app/pointcollection'], function(Point, PointCollection)
 	var divStatsNormalized = document.getElementById("divStatsNormalized");
 	var btnRandomGen = document.getElementById("btnRandomGen");
 	var btnClear = document.getElementById("btnClear");
-
+	var spanNumPoints = document.getElementById("spanNumPoints");
 
 	var pointLimit = 20;
 	var numPoints = 0;
@@ -32,15 +32,13 @@ requirejs(['app/point', 'app/pointcollection'], function(Point, PointCollection)
 
 	function manualInsert(event) {
 		point = new Point(event, canvas, true);
-
-		pointCollection.insert(point, divStats);
-		ctx.fillRect(canvas.width * point.x, canvas.height * point.y, 2.5, 2.5);
-
-		numPoints++;
+		addPoint(point);
 
 		if (numPoints == pointLimit) {
 				canvas.removeEventListener('click', manualInsert);
 				btnRandomGen.removeEventListener('click', randomFill);
+
+				btnRandomGen.disabled = true;
 		}
 	}
 
@@ -48,13 +46,16 @@ requirejs(['app/point', 'app/pointcollection'], function(Point, PointCollection)
 		randomGenInterval = setInterval(addRandPoint, 200);
 	}
 
+	function addPoint(point) {
+		pointCollection.insert(point, divStats);
+		ctx.fillRect(canvas.width * point.x, canvas.height * point.y, 2.5, 2.5);
+		numPoints++;
+	}
+
 	function addRandPoint() {
 		point = new Point(Math.random(), Math.random(), false);
 
-		pointCollection.insert(point, divStats);
-		ctx.fillRect(canvas.width * point.x, canvas.height * point.y, 2.5, 2.5);
-
-		numPoints++;
+		addPoint(point);
 		pointsGenerated++;
 
 		if (pointsGenerated == fillAmount || numPoints == pointLimit) {
