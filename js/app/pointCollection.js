@@ -58,10 +58,9 @@ define(['app/collectionStats', 'app/table'], function(CollectionStats, normalize
 			this.stats.rangeX = this.stats.maxX - this.stats.minX;
 			this.stats.rangeY = this.stats.maxY - this.stats.minY;
 
-			this.stats["min(X gap)"] = this.sortedGapsX[0];
-			this.stats["min(Y gap)"] = this.sortedGapsY[0];
-			this.stats["max(X gap)"] = this.sortedGapsX[this.sortedGapsX.length - 1];
-			this.stats["max(Y gap)"] = this.sortedGapsY[this.sortedGapsY.length - 1];
+			this.stats["minGapX1"] = this.sortedGapsX[0];
+			this.stats["minGapY1"] = this.sortedGapsY[0];
+			
 
 			if (this.points.length > 1) {
 				this.stats["minGapX2"] = this.sortedGapsX[1];
@@ -88,6 +87,9 @@ define(['app/collectionStats', 'app/table'], function(CollectionStats, normalize
 				this.stats["minGapY6"] = this.sortedGapsY[5];
 			}
 
+			this.stats["maxGapX1"] = this.sortedGapsX[this.sortedGapsX.length - 1];
+			this.stats["maxGapY1"] = this.sortedGapsY[this.sortedGapsY.length - 1];
+
 			if (this.points.length > 1) {
 				this.stats["maxGapX2"] = this.sortedGapsX[this.points.length - 1 - 1];
 				this.stats["maxGapY2"] = this.sortedGapsY[this.points.length - 1 - 1];
@@ -109,8 +111,8 @@ define(['app/collectionStats', 'app/table'], function(CollectionStats, normalize
 			}
 
 			if (this.points.length > 5) {
-				this.stats["maxGapX0"] = this.sortedGapsX[this.points.length - 1 - 5];
-				this.stats["maxGapY0"] = this.sortedGapsY[this.points.length - 1 - 5];
+				this.stats["maxGapX6"] = this.sortedGapsX[this.points.length - 1 - 5];
+				this.stats["maxGapY6"] = this.sortedGapsY[this.points.length - 1 - 5];
 			}
 
 			for (var gap = 1; gap < this.points.length - 2; gap++) {
