@@ -12,6 +12,9 @@
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="js/bootstrap.min.js"></script>
 	<!--<script src="js/lib/canvasjs.min.js"></script>!-->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.indigo-deep_orange.min.css">
+	<script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
 </head>
 <body>
 <div class="container">
@@ -22,12 +25,12 @@
 	<div class="container">
   	<div class="row">
     	<div class="col-md-4">
+				<center>
       	<canvas id="myCanvas" width=300; height=300; style="border:1px solid #000000;"></canvas>
 				<br>
-					<center>
-					<button id="btnRandomGen"></button>
-					<button id="btnClear">Clear</button>
-					</center>
+				<button id="btnRandomGen" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored"></button>
+				<button id="btnClear" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Clear</button>
+				</center>
 			</div>
     	<div class="col-md-8">
 				<div id="chartContainer" style="height: 300px; width: 100%;">
