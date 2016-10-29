@@ -5,7 +5,7 @@ requirejs.config({
     }
 });
 
-requirejs(['app/point', 'app/pointCollection', 'app/table', 'js/node_modules/canvasjs/dist/canvasjs.js'], function(Point, PointCollection, normalize, CanvasJS) {
+requirejs(['app/Point', 'app/PointCollection', 'app/table', 'js/node_modules/canvasjs/dist/canvasjs.js'], function(Point, PointCollection, normalize, CanvasJS) {
 
 	var canvas = document.getElementById("myCanvas");
 	var ctx = canvas.getContext("2d");

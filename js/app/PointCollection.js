@@ -1,4 +1,4 @@
-define(['app/collectionStats', 'app/table'], function(CollectionStats, normalize) {
+define(['app/CollectionStats', 'app/table'], function(CollectionStats, normalize) {
 	console.log("Loaded point collection!");
 
 	function PointCollection() {

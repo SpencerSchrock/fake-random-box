@@ -8,7 +8,7 @@ requirejs.config({
     nodeRequire: require
 });
 
-requirejs(['app/point', 'app/pointCollection'], function(Point, PointCollection) {
+requirejs(['app/Point', 'app/PointCollection'], function(Point, PointCollection) {
 	function genRandPointCollection(size) {
 		coll = new PointCollection();
 		for (var i = 0; i < size; i++) {
